@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Chakra imports
 import {
@@ -14,6 +14,8 @@ import {
   Text,
   Icon,
   DarkMode,
+  useToast,
+  FormHelperText,
 } from "@chakra-ui/react";
 
 // Icons
@@ -24,10 +26,53 @@ import GradientBorder from "components/GradientBorder/GradientBorder";
 
 // Assets
 import signUpImage from "assets/img/signUpImage.png";
+import axios from "axios";
 
 function SignUp() {
   const titleColor = "white";
   const textColor = "gray.400";
+  const toast = useToast()
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  })
+
+  async function register(body) {
+    setIsLoading(true)
+    try {
+
+      const response = await axios.post(`http://localhost:5000/users/signUp`, body)
+      console.log(response)
+      toast({
+        title: "Usuário registrado",
+        description: "We've created your account for you.",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+        position: 'top-right'
+      })
+      setIsLoading(false)
+    } catch (err) {
+      console.log(err)
+      let error
+      if (err.response.data.name === "DuplicatedEmailError") {
+        error = "Esse email já esta em uso!"
+      }
+      error = "Erro desconhecido"
+      toast({
+        title: "houve um erro",
+        description: `${error}`,
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+        position: 'top-right'
+      })
+      setIsLoading(false)
+    }
+  }
 
   return (
     <Flex position='relative' overflow={{ lg: "hidden" }}>
@@ -62,15 +107,6 @@ function SignUp() {
               color='white'
               fontWeight='bold'>
               Welcome!
-            </Text>
-            <Text
-              fontSize='md'
-              color='white'
-              fontWeight='normal'
-              mt='10px'
-              w={{ base: "100%", md: "90%", lg: "90%", xl: "80%" }}>
-              Use these awesome forms to login or create new account in your
-              project for free.
             </Text>
           </Flex>
           <GradientBorder p='2px' me={{ base: "none", lg: "30px", xl: "none" }}>
@@ -197,6 +233,8 @@ function SignUp() {
                     h='46px'
                     type='text'
                     placeholder='Your name'
+                    onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                    required={true}
                   />
                 </GradientBorder>
                 <FormLabel
@@ -225,6 +263,7 @@ function SignUp() {
                     h='46px'
                     type='email'
                     placeholder='Your email address'
+                    onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
                   />
                 </GradientBorder>
                 <FormLabel
@@ -253,8 +292,23 @@ function SignUp() {
                     h='46px'
                     type='password'
                     placeholder='Your password'
+                    onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
                   />
+                
                 </GradientBorder>
+                {!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+                    newUser.password
+                  ) ? (
+                    <FormHelperText color={"red.300"} mb={5}>
+                      1. A senha deve ter pelo menos 8 caracteres<br/>
+                      2. A senha deve conter pelo menos uma letra maiúscula.<br/>
+                      3. A senha deve conter pelo menos uma letra minúscula.<br/>
+                      4. A senha deve conter pelo menos um dígito.<br/>
+                      5. A senha deve conter pelo menos um caractere especial.<br/>
+                    </FormHelperText>
+                  ) : (
+                    <span />
+                  )}
                 <FormControl display='flex' alignItems='center' mb='24px'>
                   <DarkMode>
                     <Switch id='remember-login' colorScheme='brand' me='10px' />
@@ -276,7 +330,19 @@ function SignUp() {
                   maxW='350px'
                   h='45'
                   mb='20px'
-                  mt='20px'>
+                  mt='20px'
+                  onClick={() => register(newUser)}
+                  isLoading={isLoading}
+
+                  disabled={
+                    newUser.name.length < 3 ||
+                      !/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(newUser.email) ||
+                      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+                        newUser.password
+                      )
+                      ? true : false
+                  }
+                >
                   SIGN UP
                 </Button>
               </FormControl>
