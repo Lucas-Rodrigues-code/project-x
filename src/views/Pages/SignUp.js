@@ -65,7 +65,7 @@ function SignUp() {
     } catch (err) {
       console.log(err)
       let error = manifest[language].signUp.toast.error
-      if (err.response.data.name === "DuplicatedEmailError") {
+      if (err.response?.data.name === "DuplicatedEmailError") {
         error = manifest[language].signUp.toast.warningEmail
       }
 
