@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // Chakra imports
 import {
   Box,
@@ -12,6 +12,10 @@ import {
   Switch,
   Text,
   DarkMode,
+  useToast,
+  InputGroup,
+  InputRightElement,
+  IconButton,
 } from "@chakra-ui/react";
 
 // Assets
@@ -20,10 +24,63 @@ import signInImage from "assets/img/signInImage.png";
 // Custom Components
 import AuthFooter from "components/Footer/AuthFooter";
 import GradientBorder from "components/GradientBorder/GradientBorder";
+import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function SignIn() {
   const titleColor = "white";
   const textColor = "gray.400";
+
+  const toast = useToast()
+  const [isLoading, setIsLoading] = useState(false);
+  const [login, setLogin] = useState({
+    email: "",
+    password: ""
+  });
+console.log(login)
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  async function loginUser(body) {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/users/signIn",
+        body
+      );
+
+
+      //localStorage.setItem("user", "user");
+      console.log(response)
+
+      toast({
+        position: "top-right",
+        title: `Bem vindo `,
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      history.push("/admin/dashboard");
+    } catch (err) {
+
+      setIsLoading(false);
+      console.log(err)
+      let error = "erro"
+      if (err.response?.data.name === "invalidCredentialsError") {
+        error = "email ou senha errados"
+      }
+
+      toast({
+        position: "top-right",
+        title: `${error}`,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  }
 
   return (
     <Flex position='relative'>
@@ -84,6 +141,7 @@ function SignIn() {
                   maxW='100%'
                   h='46px'
                   placeholder='Your email adress'
+                  onChange={(e) => setLogin({ ...login, email: e.target.value })}
                 />
               </GradientBorder>
             </FormControl>
@@ -99,18 +157,31 @@ function SignIn() {
                 mb='24px'
                 w={{ base: "100%", lg: "fit-content" }}
                 borderRadius='20px'>
-                <Input
-                  color='white'
-                  bg='rgb(19,21,54)'
-                  border='transparent'
-                  borderRadius='20px'
-                  fontSize='sm'
-                  size='lg'
-                  w={{ base: "100%", md: "346px" }}
-                  maxW='100%'
-                  type='password'
-                  placeholder='Your password'
-                />
+                <InputGroup>
+                  <Input
+                    color='white'
+                    bg='rgb(19,21,54)'
+                    border='transparent'
+                    borderRadius='20px'
+                    fontSize='sm'
+                    size='lg'
+                    w={{ base: "100%", md: "346px" }}
+                    maxW='100%'
+                    type={showPassword ? "text" : "password"}
+                    placeholder='Your password'
+                    onChange={(e) => setLogin({ ...login, password: e.target.value })}
+                  />
+                  <InputRightElement>
+                    <IconButton
+                      icon={showPassword ? <FaEye /> : <FaEyeSlash />}
+                      onClick={toggleShowPassword}
+                      mr={2}
+                      mt={2}
+                      bg={"#0A0E31"}
+                      _hover={"#0A0E31"}
+                    />
+                  </InputRightElement>
+                </InputGroup>
               </GradientBorder>
             </FormControl>
             <FormControl display='flex' alignItems='center'>
@@ -127,6 +198,7 @@ function SignIn() {
               </FormLabel>
             </FormControl>
             <Button
+              onClick={() => loginUser(login)}
               variant='brand'
               fontSize='10px'
               type='submit'
