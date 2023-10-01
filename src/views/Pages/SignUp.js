@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 // Chakra imports
 import {
@@ -28,10 +28,16 @@ import GradientBorder from "components/GradientBorder/GradientBorder";
 import signUpImage from "assets/img/signUpImage.png";
 import axios from "axios";
 
+import manifest from "assets/manifest.json";
+import { LanguageContext } from "contexts/languageContext";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 function SignUp() {
   const titleColor = "white";
   const textColor = "gray.400";
   const toast = useToast()
+  const history = useHistory()
+  const { language } = useContext(LanguageContext);
 
   const [isLoading, setIsLoading] = useState(false)
   const [newUser, setNewUser] = useState({
@@ -47,21 +53,22 @@ function SignUp() {
       const response = await axios.post(`http://localhost:5000/users/signUp`, body)
       console.log(response)
       toast({
-        title: "Usuário registrado",
-        description: "We've created your account for you.",
+        title: manifest[language].signUp.toast.userRegister,
+        description: manifest[language].signUp.toast.warningLogin,
         status: 'success',
         duration: 9000,
         isClosable: true,
         position: 'top-right'
       })
       setIsLoading(false)
+      history.push("/auth/signin")
     } catch (err) {
       console.log(err)
-      let error
+      let error = manifest[language].signUp.toast.error
       if (err.response.data.name === "DuplicatedEmailError") {
-        error = "Esse email já esta em uso!"
+        error = manifest[language].signUp.toast.warningEmail
       }
-      error = "Erro desconhecido"
+
       toast({
         title: "houve um erro",
         description: `${error}`,
@@ -106,7 +113,7 @@ function SignUp() {
               lineHeight='39px'
               color='white'
               fontWeight='bold'>
-              Welcome!
+              {manifest[language].signUp.title.welcome}
             </Text>
           </Flex>
           <GradientBorder p='2px' me={{ base: "none", lg: "30px", xl: "none" }}>
@@ -127,7 +134,7 @@ function SignUp() {
                 fontWeight='bold'
                 textAlign='center'
                 mb='22px'>
-                Register With
+                {manifest[language].signUp.title.register}
               </Text>
               <HStack spacing='15px' justify='center' mb='22px'>
                 <GradientBorder borderRadius='15px'>
@@ -203,7 +210,7 @@ function SignUp() {
                 fontWeight='bold'
                 textAlign='center'
                 mb='22px'>
-                or
+                {manifest[language].signUp.title.or}
               </Text>
               <FormControl>
                 <FormLabel
@@ -211,7 +218,7 @@ function SignUp() {
                   ms='4px'
                   fontSize='sm'
                   fontWeight='normal'>
-                  Name
+                  {manifest[language].signUp.rows.name}
                 </FormLabel>
 
                 <GradientBorder
@@ -232,7 +239,7 @@ function SignUp() {
                     maxW='100%'
                     h='46px'
                     type='text'
-                    placeholder='Your name'
+                    placeholder={manifest[language].signUp.rows.placeName}
                     onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
                     required={true}
                   />
@@ -242,7 +249,7 @@ function SignUp() {
                   ms='4px'
                   fontSize='sm'
                   fontWeight='normal'>
-                  Email
+                  {manifest[language].signUp.rows.email}
                 </FormLabel>
                 <GradientBorder
                   mb='24px'
@@ -262,7 +269,7 @@ function SignUp() {
                     maxW='100%'
                     h='46px'
                     type='email'
-                    placeholder='Your email address'
+                    placeholder={manifest[language].signUp.rows.placeEmail}
                     onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
                   />
                 </GradientBorder>
@@ -271,7 +278,7 @@ function SignUp() {
                   ms='4px'
                   fontSize='sm'
                   fontWeight='normal'>
-                  Password
+                  {manifest[language].signUp.rows.password}
                 </FormLabel>
                 <GradientBorder
                   mb='24px'
@@ -291,24 +298,24 @@ function SignUp() {
                     maxW='100%'
                     h='46px'
                     type='password'
-                    placeholder='Your password'
+                    placeholder={manifest[language].signUp.rows.placePass}
                     onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
                   />
-                
+
                 </GradientBorder>
                 {!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-                    newUser.password
-                  ) ? (
-                    <FormHelperText color={"red.300"} mb={5}>
-                      1. A senha deve ter pelo menos 8 caracteres<br/>
-                      2. A senha deve conter pelo menos uma letra maiúscula.<br/>
-                      3. A senha deve conter pelo menos uma letra minúscula.<br/>
-                      4. A senha deve conter pelo menos um dígito.<br/>
-                      5. A senha deve conter pelo menos um caractere especial.<br/>
-                    </FormHelperText>
-                  ) : (
-                    <span />
-                  )}
+                  newUser.password
+                ) ? (
+                  <FormHelperText color={"red.300"} mb={5}>
+                    {manifest[language].signUp.rows.warning1}<br />
+                    {manifest[language].signUp.rows.warning2}<br />
+                    {manifest[language].signUp.rows.warning3}<br />
+                    {manifest[language].signUp.rows.warning4}<br />
+                    {manifest[language].signUp.rows.warning5}<br />
+                  </FormHelperText>
+                ) : (
+                  <span />
+                )}
                 <FormControl display='flex' alignItems='center' mb='24px'>
                   <DarkMode>
                     <Switch id='remember-login' colorScheme='brand' me='10px' />
@@ -319,7 +326,7 @@ function SignUp() {
                     htmlFor='remember-login'
                     mb='0'
                     fontWeight='normal'>
-                    Remember me
+                    {manifest[language].signUp.rows.remember}
                   </FormLabel>
                 </FormControl>
                 <Button
@@ -343,7 +350,7 @@ function SignUp() {
                       ? true : false
                   }
                 >
-                  SIGN UP
+                  {manifest[language].signUp.buttons.singUp}
                 </Button>
               </FormControl>
               <Flex
@@ -353,14 +360,14 @@ function SignUp() {
                 maxW='100%'
                 mt='0px'>
                 <Text color={textColor} fontWeight='medium'>
-                  Already have an account?
+                  {manifest[language].signUp.rows.warningCount}
                   <Link
                     color={titleColor}
                     as='span'
                     ms='5px'
                     href='#'
                     fontWeight='bold'>
-                    Sign In
+                    {manifest[language].signUp.rows.signIn}
                   </Link>
                 </Text>
               </Flex>
@@ -399,7 +406,7 @@ function SignUp() {
               letterSpacing='8px'
               fontSize='20px'
               fontWeight='500'>
-              INSPIRED BY THE FUTURE:
+              {manifest[language].signUp.rows.slogan}
             </Text>
           </Box>
         </Box>

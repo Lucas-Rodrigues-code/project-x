@@ -13,16 +13,26 @@ import {
   Text,
   DarkMode,
   LightMode,
+  Select,
 } from "@chakra-ui/react";
 import GitHubButton from "react-github-btn";
 import { Separator } from "components/Separator/Separator";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaTwitter, FaFacebook } from "react-icons/fa";
+import { LanguageContext } from "contexts/languageContext";
+import Flag from "react-flagkit";
+
+const flags = {
+  "pt-BR": () => <Flag country="BR" />,
+  "en-US": () => <Flag country="US" />
+};
 
 export default function Configurator(props) {
   const { secondary, isOpen, onClose, fixed, ...rest } = props;
   const [switched, setSwitched] = useState(props.isChecked);
+
+  const { language, setLanguage } = useContext(LanguageContext);
 
   // Chakra Color Mode
   let fixedDisplay = "flex";
@@ -51,6 +61,30 @@ export default function Configurator(props) {
             <Separator />
           </DrawerHeader>
           <DrawerBody w='340px' ps='24px' pe='40px'>
+          
+              <Flex
+                justifyContent="space-between"
+                alignItems="center"
+                mb="24px"
+              >
+                <Text fontSize="md" fontWeight="600" mb="4px">
+                 Idioma
+                </Text>
+                <Select
+                  size="sm"
+                  borderRadius="12px"
+                  w="130px"
+                  cursor="pointer"
+                  onChange={(e) => {
+                    setLanguage(e.target.value);
+                  }}
+                  value={language}
+                >
+                  <option value="pt-BR">Português</option>
+                  <option value="en-US">English</option>
+                </Select>
+                {flags[language]()}
+              </Flex>
             <Flex flexDirection='column'>
               <Box
                 display={fixedDisplay}
@@ -117,7 +151,7 @@ export default function Configurator(props) {
                     </Flex>
                   </LightMode>
                 </Box>
-              </Box> 
+              </Box>
             </Flex>
           </DrawerBody>
         </DrawerContent>

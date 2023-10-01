@@ -1,0 +1,73 @@
+{
+    "pt-BR": {
+        "signUp": {
+            "rows": {
+                "name": "Nome",
+                "placeName": "Seu nome",
+                "email": "Email",
+                "placeEmail": "Seu endereço de email",
+                "password": "Senha",
+                "placePass": "Sua senha",
+                "remember": "Lembre de mim",
+                "warning1":"1. A senha deve ter pelo menos 8 caracteres.",
+                "warning2":"2. A senha deve conter pelo menos uma letra maiúscula.",
+                "warning3":"3. A senha deve conter pelo menos uma letra minúscula.",
+                "warning4":"4. A senha deve conter pelo menos um dígito.",
+                "warning5":"5. A senha deve conter pelo menos um caractere especial.",
+                "warningCount":"já tem uma conta?",
+                "signIn":"Entrar",
+                "slogan":"INSPIRADO NO FUTURO"
+            },
+            "title": {
+                "welcome": "Bem vindo!",
+                "register": "Registre-se com",
+                "or": "ou"
+            },
+            "buttons": {
+                "singUp": "INSCREVER-SE"
+            },
+            "toast":{
+                "error":"Erro desconhecido",
+                "warningEmail":"Esse email já está em uso!",
+                "userRegister":"Usuário registrado",
+                "warningLogin":"Faça seu login!"
+            }
+        }
+    },
+    "en-US": {
+        "signUp": {
+            "rows": {
+                "name": "Name",
+                "placeName": "Your name",
+                "email": "Email",
+                "placeEmail": "Your email address",
+                "password": "Password",
+                "placePass": "Your password",
+                "remember": "Remenber me",
+                "warning1":"1. The password must be at least 8 characters long.",
+                "warning2":"2. The password must contain at least one capital letter.",
+                "warning3":"3. The password must contain at least one lowercase letter.",
+                "warning4":"4. The password must contain at least one digit.",
+                "warning5":"5. The password must contain at least one special character.",
+                "warningCount":"Already have an account?",
+                "signIn":"Sign In",
+                "slogan":"INSPIRED BY THE FUTURE"
+
+            },
+            "title": {
+                "welcome": "Welcome!",
+                "register": "Register With",
+                "or": "or"
+            },
+            "buttons": {
+                "singUp": "SIGN UP"
+            },
+            "toast":{
+                "error":"Unknown error",
+                "warningEmail":"This email is already in use!",
+                "userRegister":"Registered user",
+                "warningLogin":"Log in!"
+            }
+        }
+    }
+}
