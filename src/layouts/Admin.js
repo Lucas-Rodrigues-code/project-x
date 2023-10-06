@@ -16,6 +16,8 @@ import MainPanel from "../components/Layout/MainPanel";
 import PanelContainer from "../components/Layout/PanelContainer";
 import PanelContent from "../components/Layout/PanelContent";
 import LanguageHook from "hooks/useLanguage";
+import ProtectedRoute from "hooks/ProtectedRoute";
+import { AuthProvider } from "contexts/userContext";
 export default function Dashboard(props) {
   const { ...rest } = props;
   // states and functions
@@ -81,7 +83,7 @@ export default function Dashboard(props) {
       }
       if (prop.layout === "/admin") {
         return (
-          <Route
+          <ProtectedRoute
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}
@@ -96,62 +98,64 @@ export default function Dashboard(props) {
   document.documentElement.dir = "ltr";
   // Chakra Color Mode
   return (
-    <ChakraProvider theme={theme} resetCss={false}>
-      <LanguageHook>
-        <Sidebar
-          routes={routes}
-          logoText={"Project X"}
-          display='none'
-          sidebarVariant={sidebarVariant}
-          {...rest}
-        />
-        <MainPanel
-          ref={mainPanel}
-          w={{
-            base: "100%",
-            xl: "calc(100% - 275px)",
-          }}>
-          <Portal>
-            <AdminNavbar
-              onOpen={onOpen}
-              logoText={"Project X"}
-              brandText={getActiveRoute(routes)}
-              secondary={getActiveNavbar(routes)}
-              fixed={fixed}
-              {...rest}
-            />
-          </Portal>
-          {getRoute() ? (
-            <PanelContent>
-              <PanelContainer>
-                <Switch>
-                  {getRoutes(routes)}
-                  <Redirect from='/admin' to='/admin/home' />
-                </Switch>
-              </PanelContainer>
-            </PanelContent>
-          ) : null}
-          <Footer />
-          <Portal>
-            <FixedPlugin
-              secondary={getActiveNavbar(routes)}
-              fixed={fixed}
-              onOpen={onOpen}
-            />
-          </Portal>
-          <Configurator
-            secondary={getActiveNavbar(routes)}
-            isOpen={isOpen}
-            onClose={onClose}
-            isChecked={fixed}
-            onSwitch={(value) => {
-              setFixed(value);
-            }}
-            onOpaque={() => setSidebarVariant("opaque")}
-            onTransparent={() => setSidebarVariant("transparent")}
+    <AuthProvider>
+      <ChakraProvider theme={theme} resetCss={false}>
+        <LanguageHook>
+          <Sidebar
+            routes={routes}
+            logoText={"Project X"}
+            display='none'
+            sidebarVariant={sidebarVariant}
+            {...rest}
           />
-        </MainPanel>
-      </LanguageHook>
-    </ChakraProvider>
+          <MainPanel
+            ref={mainPanel}
+            w={{
+              base: "100%",
+              xl: "calc(100% - 275px)",
+            }}>
+            <Portal>
+              <AdminNavbar
+                onOpen={onOpen}
+                logoText={"Project X"}
+                brandText={getActiveRoute(routes)}
+                secondary={getActiveNavbar(routes)}
+                fixed={fixed}
+                {...rest}
+              />
+            </Portal>
+            {getRoute() ? (
+              <PanelContent>
+                <PanelContainer>
+                  <Switch>
+                    {getRoutes(routes)}
+                    <Redirect from='/admin' to='/admin/home' />
+                  </Switch>
+                </PanelContainer>
+              </PanelContent>
+            ) : null}
+            <Footer />
+            <Portal>
+              <FixedPlugin
+                secondary={getActiveNavbar(routes)}
+                fixed={fixed}
+                onOpen={onOpen}
+              />
+            </Portal>
+            <Configurator
+              secondary={getActiveNavbar(routes)}
+              isOpen={isOpen}
+              onClose={onClose}
+              isChecked={fixed}
+              onSwitch={(value) => {
+                setFixed(value);
+              }}
+              onOpaque={() => setSidebarVariant("opaque")}
+              onTransparent={() => setSidebarVariant("transparent")}
+            />
+          </MainPanel>
+        </LanguageHook>
+      </ChakraProvider>
+    </AuthProvider>
   );
 }

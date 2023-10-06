@@ -26,18 +26,22 @@ import AuthFooter from "components/Footer/AuthFooter";
 import GradientBorder from "components/GradientBorder/GradientBorder";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 
 function SignIn() {
   const titleColor = "white";
   const textColor = "gray.400";
 
+
   const toast = useToast()
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory()
   const [login, setLogin] = useState({
     email: "",
     password: ""
   });
-console.log(login)
+
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -51,9 +55,7 @@ console.log(login)
         body
       );
 
-
-      //localStorage.setItem("user", "user");
-      console.log(response)
+      localStorage.setItem("token", response.data.token)
 
       toast({
         position: "top-right",
