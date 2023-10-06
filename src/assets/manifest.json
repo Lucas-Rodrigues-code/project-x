@@ -9,14 +9,14 @@
                 "password": "Senha",
                 "placePass": "Sua senha",
                 "remember": "Lembre de mim",
-                "warning1":"1. A senha deve ter pelo menos 8 caracteres.",
-                "warning2":"2. A senha deve conter pelo menos uma letra maiúscula.",
-                "warning3":"3. A senha deve conter pelo menos uma letra minúscula.",
-                "warning4":"4. A senha deve conter pelo menos um dígito.",
-                "warning5":"5. A senha deve conter pelo menos um caractere especial.",
-                "warningCount":"já tem uma conta?",
-                "signIn":"Entrar",
-                "slogan":"INSPIRADO NO FUTURO"
+                "warning1": "1. A senha deve ter pelo menos 8 caracteres.",
+                "warning2": "2. A senha deve conter pelo menos uma letra maiúscula.",
+                "warning3": "3. A senha deve conter pelo menos uma letra minúscula.",
+                "warning4": "4. A senha deve conter pelo menos um dígito.",
+                "warning5": "5. A senha deve conter pelo menos um caractere especial.",
+                "warningCount": "já tem uma conta?",
+                "signIn": "Entrar",
+                "slogan": "INSPIRADO NO PELO FUTURO"
             },
             "title": {
                 "welcome": "Bem vindo!",
@@ -26,12 +26,29 @@
             "buttons": {
                 "singUp": "INSCREVER-SE"
             },
-            "toast":{
-                "error":"Erro desconhecido",
-                "warningEmail":"Esse email já está em uso!",
-                "userRegister":"Usuário registrado",
-                "warningLogin":"Faça seu login!"
+            "toast": {
+                "error": "Erro desconhecido",
+                "warningEmail": "Esse email já está em uso!",
+                "userRegister": "Usuário registrado",
+                "warningLogin": "Faça seu login!"
             }
+        },
+        "signIn": {
+            "rows": {
+                "warning": "Digite seu e-mail e senha para entrar",
+                "email":"Email",
+                "password":"Senha",
+                "remember":"Lembre de mim",
+                "warningSignUp1": "Não tem uma conta ?",
+                "warningSignUp2": "Inscrever-se",
+                "slogan": "INSPIRADO NO PELO FUTURO",
+                "signIn":"Entrar"
+            },
+            "title": {
+                "welcome": "É bom te ver!"
+            },
+            "buttons": {},
+            "toast": {}
         }
     },
     "en-US": {
@@ -44,15 +61,14 @@
                 "password": "Password",
                 "placePass": "Your password",
                 "remember": "Remenber me",
-                "warning1":"1. The password must be at least 8 characters long.",
-                "warning2":"2. The password must contain at least one capital letter.",
-                "warning3":"3. The password must contain at least one lowercase letter.",
-                "warning4":"4. The password must contain at least one digit.",
-                "warning5":"5. The password must contain at least one special character.",
-                "warningCount":"Already have an account?",
-                "signIn":"Sign In",
-                "slogan":"INSPIRED BY THE FUTURE"
-
+                "warning1": "1. The password must be at least 8 characters long.",
+                "warning2": "2. The password must contain at least one capital letter.",
+                "warning3": "3. The password must contain at least one lowercase letter.",
+                "warning4": "4. The password must contain at least one digit.",
+                "warning5": "5. The password must contain at least one special character.",
+                "warningCount": "Already have an account?",
+                "signIn": "Sign In",
+                "slogan": "INSPIRED BY THE FUTURE"
             },
             "title": {
                 "welcome": "Welcome!",
@@ -62,12 +78,30 @@
             "buttons": {
                 "singUp": "SIGN UP"
             },
-            "toast":{
-                "error":"Unknown error",
-                "warningEmail":"This email is already in use!",
-                "userRegister":"Registered user",
-                "warningLogin":"Log in!"
+            "toast": {
+                "error": "Unknown error",
+                "warningEmail": "This email is already in use!",
+                "userRegister": "Registered user",
+                "warningLogin": "Log in!"
             }
+        },
+        "signIn": {
+            "rows": {
+                "warning": "Enter your email and password to sign in",
+                "email": "Email",
+                "password": "Password",
+                "remember": "Remember me",
+                "warningSignUp1": "Don't have an account?",
+                "warningSignUp2": "Sign up",
+                "slogan": "INSPIRED BY THE FUTURE",
+                "signIn":"Sign In"
+            },
+            "title": {
+                "welcome": "Nice to see you!"
+            },
+            "buttons": {},
+            "toast": {}
         }
+        
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 // Chakra imports
 import {
   Box,
@@ -27,13 +27,14 @@ import GradientBorder from "components/GradientBorder/GradientBorder";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-
+import { LanguageContext } from "contexts/languageContext";
+import manifest from "assets/manifest.json";
 
 function SignIn() {
   const titleColor = "white";
   const textColor = "gray.400";
 
-
+  const { language } = useContext(LanguageContext);
   const toast = useToast()
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory()
@@ -110,7 +111,7 @@ function SignIn() {
             mt={{ base: "50px", md: "150px", lg: "160px", xl: "245px" }}
             mb={{ base: "60px", lg: "95px" }}>
             <Heading color={titleColor} fontSize='32px' mb='10px'>
-              Nice to see you!
+              {manifest[language].signIn.title.welcome}
             </Heading>
             <Text
               mb='36px'
@@ -118,7 +119,7 @@ function SignIn() {
               color={textColor}
               fontWeight='bold'
               fontSize='14px'>
-              Enter your email and password to sign in
+              {manifest[language].signIn.rows.warning}
             </Text>
             <FormControl>
               <FormLabel
@@ -126,7 +127,7 @@ function SignIn() {
                 fontSize='sm'
                 fontWeight='normal'
                 color='white'>
-                Email
+                {manifest[language].signIn.rows.email}
               </FormLabel>
               <GradientBorder
                 mb='24px'
@@ -153,7 +154,7 @@ function SignIn() {
                 fontSize='sm'
                 fontWeight='normal'
                 color='white'>
-                Password
+                {manifest[language].signIn.rows.password}
               </FormLabel>
               <GradientBorder
                 mb='24px'
@@ -196,7 +197,7 @@ function SignIn() {
                 ms='1'
                 fontWeight='normal'
                 color='white'>
-                Remember me
+                {manifest[language].signIn.rows.remember}
               </FormLabel>
             </FormControl>
             <Button
@@ -209,7 +210,7 @@ function SignIn() {
               h='45'
               mb='20px'
               mt='20px'>
-              SIGN IN
+              {manifest[language].signIn.rows.signIn}
             </Button>
 
             <Flex
@@ -219,9 +220,9 @@ function SignIn() {
               maxW='100%'
               mt='0px'>
               <Text color={textColor} fontWeight='medium'>
-                Don't have an account?
+                {manifest[language].signIn.rows.warningSignUp1}
                 <Link color={titleColor} as='span' ms='5px' fontWeight='bold'>
-                  Sign Up
+                  {manifest[language].signIn.rows.warningSignUp2}
                 </Link>
               </Text>
             </Flex>
@@ -261,7 +262,7 @@ function SignIn() {
               letterSpacing='8px'
               fontSize='20px'
               fontWeight='500'>
-              INSPIRED BY THE FUTURE:
+              {manifest[language].signIn.rows.slogan}
             </Text>
             <Text
               textAlign='center'
