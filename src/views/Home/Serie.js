@@ -4,11 +4,12 @@ import React from "react";
 import { Flex } from "@chakra-ui/react";
 
 function Serie() {
-
   return (
-    <Flex direction='column' pt={{ base: "120px", md: "75px" }} mx='auto'>
-     
-    </Flex>
+    <Flex
+      direction="column"
+      pt={{ base: "120px", md: "75px" }}
+      mx="auto"
+    ></Flex>
   );
 }
 

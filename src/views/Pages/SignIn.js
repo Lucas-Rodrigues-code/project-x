@@ -35,12 +35,12 @@ function SignIn() {
   const textColor = "gray.400";
 
   const { language } = useContext(LanguageContext);
-  const toast = useToast()
+  const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory()
+  const history = useHistory();
   const [login, setLogin] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -56,7 +56,7 @@ function SignIn() {
         body
       );
 
-      localStorage.setItem("token", response.data.token)
+      localStorage.setItem("token", response.data.token);
 
       toast({
         position: "top-right",
@@ -67,12 +67,11 @@ function SignIn() {
       });
       history.push("/admin/dashboard");
     } catch (err) {
-
       setIsLoading(false);
-      console.log(err)
-      let error = "erro"
+      console.log(err);
+      let error = "erro";
       if (err.response?.data.name === "invalidCredentialsError") {
-        error = "email ou senha errados"
+        error = "email ou senha errados";
       }
 
       toast({
@@ -86,93 +85,105 @@ function SignIn() {
   }
 
   return (
-    <Flex position='relative'>
+    <Flex position="relative">
       <Flex
-        minH='100vh'
+        minH="100vh"
         h={{ base: "120vh", lg: "fit-content" }}
-        w='100%'
-        maxW='1044px'
-        mx='auto'
+        w="100%"
+        maxW="1044px"
+        mx="auto"
         pt={{ sm: "100px", md: "0px" }}
-        flexDirection='column'
-        me={{ base: "auto", lg: "50px", xl: "auto" }}>
+        flexDirection="column"
+        me={{ base: "auto", lg: "50px", xl: "auto" }}
+      >
         <Flex
-          alignItems='center'
-          justifyContent='start'
+          alignItems="center"
+          justifyContent="start"
           style={{ userSelect: "none" }}
           mx={{ base: "auto", lg: "unset" }}
           ms={{ base: "auto", lg: "auto" }}
           w={{ base: "100%", md: "50%", lg: "450px" }}
-          px='50px'>
+          px="50px"
+        >
           <Flex
-            direction='column'
-            w='100%'
-            background='transparent'
+            direction="column"
+            w="100%"
+            background="transparent"
             mt={{ base: "50px", md: "150px", lg: "160px", xl: "245px" }}
-            mb={{ base: "60px", lg: "95px" }}>
-            <Heading color={titleColor} fontSize='32px' mb='10px'>
+            mb={{ base: "60px", lg: "95px" }}
+          >
+            <Heading color={titleColor} fontSize="32px" mb="10px">
               {manifest[language].signIn.title.welcome}
             </Heading>
             <Text
-              mb='36px'
-              ms='4px'
+              mb="36px"
+              ms="4px"
               color={textColor}
-              fontWeight='bold'
-              fontSize='14px'>
+              fontWeight="bold"
+              fontSize="14px"
+            >
               {manifest[language].signIn.rows.warning}
             </Text>
             <FormControl>
               <FormLabel
-                ms='4px'
-                fontSize='sm'
-                fontWeight='normal'
-                color='white'>
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                color="white"
+              >
                 {manifest[language].signIn.rows.email}
               </FormLabel>
               <GradientBorder
-                mb='24px'
+                mb="24px"
                 w={{ base: "100%", lg: "fit-content" }}
-                borderRadius='20px'>
+                borderRadius="20px"
+              >
                 <Input
-                  color='white'
-                  bg='rgb(19,21,54)'
-                  border='transparent'
-                  borderRadius='20px'
-                  fontSize='sm'
-                  size='lg'
+                  color="white"
+                  bg="rgb(19,21,54)"
+                  border="transparent"
+                  borderRadius="20px"
+                  fontSize="sm"
+                  size="lg"
                   w={{ base: "100%", md: "346px" }}
-                  maxW='100%'
-                  h='46px'
-                  placeholder='Your email adress'
-                  onChange={(e) => setLogin({ ...login, email: e.target.value })}
+                  maxW="100%"
+                  h="46px"
+                  placeholder="Your email adress"
+                  onChange={(e) =>
+                    setLogin({ ...login, email: e.target.value })
+                  }
                 />
               </GradientBorder>
             </FormControl>
             <FormControl>
               <FormLabel
-                ms='4px'
-                fontSize='sm'
-                fontWeight='normal'
-                color='white'>
+                ms="4px"
+                fontSize="sm"
+                fontWeight="normal"
+                color="white"
+              >
                 {manifest[language].signIn.rows.password}
               </FormLabel>
               <GradientBorder
-                mb='24px'
+                mb="24px"
                 w={{ base: "100%", lg: "fit-content" }}
-                borderRadius='20px'>
+                borderRadius="20px"
+              >
                 <InputGroup>
                   <Input
-                    color='white'
-                    bg='rgb(19,21,54)'
-                    border='transparent'
-                    borderRadius='20px'
-                    fontSize='sm'
-                    size='lg'
+                    color="white"
+                    bg="rgb(19,21,54)"
+                    border="transparent"
+                    borderRadius="20px"
+                    fontSize="sm"
+                    size="lg"
                     w={{ base: "100%", md: "346px" }}
-                    maxW='100%'
+                    maxW="100%"
                     type={showPassword ? "text" : "password"}
-                    placeholder='Your password'
-                    onChange={(e) => setLogin({ ...login, password: e.target.value })}
+                    placeholder="Your password"
+                    onChange={(e) =>
+                      setLogin({ ...login, password: e.target.value })
+                    }
                   />
                   <InputRightElement>
                     <IconButton
@@ -187,41 +198,44 @@ function SignIn() {
                 </InputGroup>
               </GradientBorder>
             </FormControl>
-            <FormControl display='flex' alignItems='center'>
+            <FormControl display="flex" alignItems="center">
               <DarkMode>
-                <Switch id='remember-login' colorScheme='brand' me='10px' />
+                <Switch id="remember-login" colorScheme="brand" me="10px" />
               </DarkMode>
               <FormLabel
-                htmlFor='remember-login'
-                mb='0'
-                ms='1'
-                fontWeight='normal'
-                color='white'>
+                htmlFor="remember-login"
+                mb="0"
+                ms="1"
+                fontWeight="normal"
+                color="white"
+              >
                 {manifest[language].signIn.rows.remember}
               </FormLabel>
             </FormControl>
             <Button
               onClick={() => loginUser(login)}
-              variant='brand'
-              fontSize='10px'
-              type='submit'
-              w='100%'
-              maxW='350px'
-              h='45'
-              mb='20px'
-              mt='20px'>
+              variant="brand"
+              fontSize="10px"
+              type="submit"
+              w="100%"
+              maxW="350px"
+              h="45"
+              mb="20px"
+              mt="20px"
+            >
               {manifest[language].signIn.rows.signIn}
             </Button>
 
             <Flex
-              flexDirection='column'
-              justifyContent='center'
-              alignItems='center'
-              maxW='100%'
-              mt='0px'>
-              <Text color={textColor} fontWeight='medium'>
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              maxW="100%"
+              mt="0px"
+            >
+              <Text color={textColor} fontWeight="medium">
                 {manifest[language].signIn.rows.warningSignUp1}
-                <Link color={titleColor} as='span' ms='5px' fontWeight='bold'>
+                <Link color={titleColor} as="span" ms="5px" fontWeight="bold">
                   {manifest[language].signIn.rows.warningSignUp2}
                 </Link>
               </Text>
@@ -232,46 +246,50 @@ function SignIn() {
           w={{ base: "335px", md: "450px" }}
           mx={{ base: "auto", lg: "unset" }}
           ms={{ base: "auto", lg: "auto" }}
-          mb='80px'>
+          mb="80px"
+        >
           <AuthFooter />
         </Box>
         <Box
           display={{ base: "none", lg: "block" }}
-          overflowX='hidden'
-          h='100%'
+          overflowX="hidden"
+          h="100%"
           maxW={{ md: "50vw", lg: "50vw" }}
-          minH='100vh'
-          w='960px'
-          position='absolute'
-          left='0px'>
+          minH="100vh"
+          w="960px"
+          position="absolute"
+          left="0px"
+        >
           <Box
             bgImage={signInImage}
-            w='100%'
-            h='100%'
-            bgSize='cover'
-            bgPosition='50%'
-            position='absolute'
-            display='flex'
-            flexDirection='column'
-            justifyContent='center'
-            alignItems='center'
+            w="100%"
+            h="100%"
+            bgSize="cover"
+            bgPosition="50%"
+            position="absolute"
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
           >
             <Text
-              textAlign='center'
-              color='white'
-              letterSpacing='8px'
-              fontSize='20px'
-              fontWeight='500'>
+              textAlign="center"
+              color="white"
+              letterSpacing="8px"
+              fontSize="20px"
+              fontWeight="500"
+            >
               {manifest[language].signIn.rows.slogan}
             </Text>
             <Text
-              textAlign='center'
-              color='transparent'
-              letterSpacing='8px'
-              fontSize='36px'
-              fontWeight='bold'
-              bgClip='text !important'
-              bg='linear-gradient(94.56deg, #FFFFFF 79.99%, #21242F 102.65%)'>
+              textAlign="center"
+              color="transparent"
+              letterSpacing="8px"
+              fontSize="36px"
+              fontWeight="bold"
+              bgClip="text !important"
+              bg="linear-gradient(94.56deg, #FFFFFF 79.99%, #21242F 102.65%)"
+            >
               THE PROJECT X
             </Text>
           </Box>
