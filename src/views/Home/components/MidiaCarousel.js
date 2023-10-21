@@ -1,6 +1,9 @@
+//libs
 import { SimpleGrid, Box, Image, Flex, IconButton } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useState } from "react";
+//components
+import MovieFooter from "./MovieFooter ";
 
 const MidiaCarousel = ({ moviesData, id }) => {
   const scrollLeft = () => {
@@ -43,7 +46,6 @@ const MidiaCarousel = ({ moviesData, id }) => {
             <Box
               key={i}
               mb={4}
-              // position="relative" // Adicione posição relativa
               onMouseEnter={() => setHoveredMovie(i)} // Ao passar o mouse, atualize o estado
               onMouseLeave={() => setHoveredMovie(null)}
               style={{ zIndex: hoveredMovie === i ? 1 : 0 }}
@@ -57,20 +59,9 @@ const MidiaCarousel = ({ moviesData, id }) => {
                 h={"163px"}
                 maxWidth={"289"}
                 borderRadius={"5px"}
+                borderBottomRadius={hoveredMovie === i ? "0px" : "5px"}
               />
-
-              <Box
-                //position="absolute"
-                //bottom="0"
-                // left="0"
-                // right="0"
-                h={"100px"}
-                background="rgba(0, 0, 0, 0.7)"
-                color="white"
-                p={2}
-              >
-                sdfdsfd
-              </Box>
+              <MovieFooter hoveredMovie={hoveredMovie} i={i} />
             </Box>
           ))}
         </SimpleGrid>
